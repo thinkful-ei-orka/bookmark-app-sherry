@@ -11,6 +11,7 @@ function main() {
      * after getting info from api
      */
     bookmark.bindEventListeners();
+    bookmark.render();
 }
 
 $(main);
