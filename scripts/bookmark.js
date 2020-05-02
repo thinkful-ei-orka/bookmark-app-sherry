@@ -21,7 +21,7 @@ function templateBookmarkPage() {
         <option value="rating-three">See 3 and above</option>
         <option value="rating-two">See 2 and above</option>
         <option value="rating-one">See 1 and above</option>
-    </select>     
+    </select>
     <div role="bookmark-list" class="js-bookmark-list">
         <p class="bookmark-title">Title</p>
         <a href="URL" class="bookmark-url hidden">Visit Site</a>
@@ -113,6 +113,9 @@ function filterBookmarks() {
     $('main').on('click', '.js-select-rating', event => {
         event.preventDefault();
         console.log('filterBookmarks');
+        const id = getItemIdFromElement(event.currentTarget);
+        //if(store.bookmarks[id].rating === )
+        // use rating-one rating-all etc
     })
 }
 
