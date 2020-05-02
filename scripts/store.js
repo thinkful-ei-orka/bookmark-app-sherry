@@ -1,3 +1,4 @@
+'use strict';
 // create store 
 
 const store = {

@@ -1,3 +1,4 @@
+'use strict';
 //renders base pg at DOM ready,
 //then reaches into the store to get bookmark info
 

@@ -1,3 +1,4 @@
+'use strict';
 //template, render, and event listeners
 //all event listeners are on <main>
 
@@ -67,6 +68,12 @@ function render() {
 
 }
 
+function getItemIdFromElement(item) {
+    return $(item)
+        .closest('.js-bookmark-list')
+        .data('item-id');
+}
+
 /**
  * event listeners
  */
@@ -96,6 +103,7 @@ function deleteBookmark() {
     $('main').on('click', '.js-delete-button', event => {
         event.preventDefault();
         console.log('deleteBookmark');
+        const id = getItemIdFromElement(event.currentTarget);
     })
     //js-delete-button hidden
 }
