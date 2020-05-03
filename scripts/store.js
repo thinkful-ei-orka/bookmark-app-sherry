@@ -1,17 +1,18 @@
 'use strict';
 // create store 
 
-const store = {
-    bookmarks : [],
-    adding: false,
-    error: null,
-    filter: 0,
-};
+const bookmarks = [];
+let adding = false;
+let error = null;
+let filter = 0;
 
 // expanded: true on bookmarks [] local
 // bookmarks.set('expanded', 'false') でいいかな
 
 
 export default {
-    store
+    bookmarks,
+    adding,
+    error,
+    filter
 }
