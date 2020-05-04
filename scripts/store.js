@@ -17,10 +17,15 @@ function addItem(newItem) {
     this.bookmarks.push(item.create(newItem));
 }
 
+function findAndDelete(id) {
+    this.bookmarks = this.bookmarks.filter(currentItem => currentItem.id !== id);
+}
+
 export default {
     bookmarks,
     adding,
     error,
     filter,
-    addItem
+    addItem,
+    findAndDelete
 }

@@ -13,14 +13,14 @@ import store from './store.js';
 function templateBookmarks(bookmark) {
 //    console.log('templateBookmarks was called');
     //need a forEach on this
-    let bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list">
+    let bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list" data-item-id="${bookmark.id}">
             <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
             <p class="bookmark-rating">${bookmark.rating}</p>
         </div>`;
 //        console.log(bookmarkForm);
 
     if(!bookmark.expanded) {
-       bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list">
+       bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list" data-item-id="${bookmark.id}">
             <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
             <a href="${bookmark.url}" class="bookmark-url">Visit Site</a>
             <p class="bookmark-description">${bookmark.desc}</p>
@@ -99,6 +99,7 @@ function getItemIdFromElement(item) {
         .data('item-id');
 }
 
+
 /**
  * event listeners
  */
@@ -145,15 +146,18 @@ function deleteBookmark() {
     $('main').on('click', '.js-delete-button', event => {
         event.preventDefault();
         console.log('deleteBookmark');
+        
         const id = getItemIdFromElement(event.currentTarget);
         console.log(id);
+        
         api.deleteBookmark(id)
         .then(res => res.json())
         .then((items) => {
-            console.log(items);
+        //    console.log(items);
+            store.findAndDelete(id);
             render();
         }).catch(err => console.error(err.message));
-//        console.log('createBookmark worked');
+
         render();
     })
 }
@@ -161,12 +165,13 @@ function deleteBookmark() {
 //filters the bookmarks
 function filterBookmarks() {
     $('main').on('click', '.js-select-rating', event => {
-        event.stopPropagation();
+//        event.stopPropagation(); even needed?
         event.preventDefault();
         console.log('filterBookmarks');
         const id = getItemIdFromElement(event.currentTarget);
         //if(store.bookmarks[id].rating === )
-        // use rating-one rating-all etc
+        // this should be a number, but check it
+        // probably a filter method here on store.bookmarks
     })
 }
 
@@ -174,7 +179,9 @@ function filterBookmarks() {
 //function expandBookmarks() {
 //    $('main').on('click', '.js-expand-button', event => {
 //        event.preventDefault();
-//        if(store.[something]expanded)
+//        const id = getItemIdFromElements(event.currentTarget);
+//        store.bookmarks[id].expanded = true;
+//        render();
 //    })
 //]}
 
