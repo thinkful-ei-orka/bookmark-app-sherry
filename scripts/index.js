@@ -22,6 +22,7 @@ function main() {
 //    console.log(store.bookmarks);
     bookmark.bindEventListeners();
     bookmark.render();
+
 }
 
 $(main);

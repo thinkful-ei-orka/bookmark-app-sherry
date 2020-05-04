@@ -14,17 +14,17 @@ function templateBookmarks(bookmark) {
 //    console.log('templateBookmarks was called');
     //need a forEach on this
     let bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list">
-            <button type="button" class="bookmark-title js-expand-button">${store.bookmarks.title}</button>
-            <p class="bookmark-rating">${store.bookmarks.rating}</p>
+            <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
+            <p class="bookmark-rating">${bookmark.rating}</p>
         </div>`;
 //        console.log(bookmarkForm);
 
-    if(!store.bookmarks) {
-       bookmarkForm = ` <div role="bookmark-list" class="js-bookmark-list">
-            <button type="button" class="bookmark-title js-expand-button">${store.bookmarks.title}</button>
-            <a href="${store.bookmarks.url}" class="bookmark-url">Visit Site</a>
-            <p class="bookmark-description">${store.bookmarks.desc}</p>
-            <p class="bookmark-rating">${store.bookmarks.rating}</p>
+    if(bookmark.expanded) {
+       bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list">
+            <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
+            <a href="${bookmark.url}" class="bookmark-url">Visit Site</a>
+            <p class="bookmark-description">${bookmark.desc}</p>
+            <p class="bookmark-rating">${bookmark.rating}</p>
             <button type="button" class="cancel-button js-cancel-button">Cancel</button>
             <button type="button" class="delete-button js-delete-button">Delete</button>
         </div>`;
@@ -48,7 +48,7 @@ function templateBookmarkPage() {
 
 function bookmarkString() {
     const bookmarks = store.bookmarks.map(item => templateBookmarks(item));
-    console.log(bookmarks);
+//    console.log(bookmarks);
     return bookmarks.join('');
 }
 
@@ -106,7 +106,12 @@ function getItemIdFromElement(item) {
 function addBookmark() {
     $('main').on('submit', '.js-add-button-submit', event => {
         event.preventDefault();
-        console.log('addBookmark worked');
+        api.createBookmark()
+        .then(res => res.json())
+        .then((items) => {
+            console.log(items);
+        }).catch(err => console.error(err.message));
+        console.log('createBookmark worked');
         render();
     })
 

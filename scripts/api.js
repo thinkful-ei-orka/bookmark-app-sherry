@@ -32,6 +32,7 @@ function getBookmarks() {
 
 //create bookmarks
 function createBookmark(...args) {
+    console.log('createBookmark was called in api.js');
     const newBookmark = JSON.stringify({...args});
     return fetch(`${BASE_URL}/bookmarks`, {
         method: 'POST',
