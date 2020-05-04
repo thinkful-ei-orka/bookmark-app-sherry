@@ -19,7 +19,7 @@ function templateBookmarks(bookmark) {
         </div>`;
 //        console.log(bookmarkForm);
 
-    if(bookmark.expanded) {
+    if(!bookmark.expanded) {
        bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list">
             <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
             <a href="${bookmark.url}" class="bookmark-url">Visit Site</a>
@@ -55,17 +55,17 @@ function bookmarkString() {
 //renders the add bookmark page
 function templateAddBookmarkPage() {
     console.log('templateAddBookMarkPage was called');
-    return `<form class="add-bookmark-form">
+    return `<form class="add-bookmark-form" name="add-bookmark-form">
         <fieldset class="add-bookmark-fieldset">
             <legend>Add Bookmark</legend>
             <label for="bookmark-title-input">Title</label>
-            <input type="text" name="bookmark-title-input" id="bookmark-title-input" placeholder="Title of Page" required/>
+            <input type="text" name="title" id="bookmark-title-input" placeholder="Title of Page" required/>
             <label for="bookmark-url">Web Address</label>
-            <input type="url" name="bookmark-url-input" id="bookmark-url-input" placeholder="Page URL" required/>
+            <input type="url" name="url" id="bookmark-url-input" placeholder="Page URL" required/>
             <label for="bookmark-description-input">Description</label>
-            <input type="text" name="bookmark-description-input" id="bookmark-description-input" placeholder="Description of site" required/>
+            <input type="text" name="desc" id="bookmark-description-input" placeholder="Description of site" required/>
             <label for="bookmark-rating-input">Rating 1 - 5</label>
-            <input type="number" min="1" max="5" name="bookmark-rating-input" id="bookmark-rating-input" placeholder="1 - 5" required/>
+            <input type="number" min="1" max="5" name="rating" id="bookmark-rating-input" placeholder="1 - 5" required/>
             <button type="submit" class="add-bookmark-submit js-add-button-submit">Add Bookmark</button>
         </fieldset>
     </form>`
@@ -93,6 +93,7 @@ function render() {
 }
 
 function getItemIdFromElement(item) {
+    console.log(item);
     return $(item)
         .closest('.js-bookmark-list')
         .data('item-id');
@@ -102,16 +103,28 @@ function getItemIdFromElement(item) {
  * event listeners
  */
 
+function serializeJson(form) {
+    const formData = new FormData(form);
+    const o = {};
+    formData.forEach((val, name) => o[name] = val);
+    o.rating = parseInt(o.rating);
+    return JSON.stringify(o);
+}
+
 //adds bookmark to page
 function addBookmark() {
-    $('main').on('submit', '.js-add-button-submit', event => {
+    $('main').on('submit', '.add-bookmark-form', event => {
         event.preventDefault();
-        api.createBookmark()
+        const newBookmark = serializeJson($('.add-bookmark-form')[0]);
+//        console.log(newBookmark);
+        api.createBookmark(newBookmark)
         .then(res => res.json())
         .then((items) => {
-            console.log(items);
+//            console.log(items);
+            store.addItem(items);
+            render();
         }).catch(err => console.error(err.message));
-        console.log('createBookmark worked');
+//        console.log('createBookmark worked');
         render();
     })
 
@@ -133,8 +146,16 @@ function deleteBookmark() {
         event.preventDefault();
         console.log('deleteBookmark');
         const id = getItemIdFromElement(event.currentTarget);
+        console.log(id);
+        api.deleteBookmark(id)
+        .then(res => res.json())
+        .then((items) => {
+            console.log(items);
+            render();
+        }).catch(err => console.error(err.message));
+//        console.log('createBookmark worked');
+        render();
     })
-    //js-delete-button hidden
 }
 
 //filters the bookmarks

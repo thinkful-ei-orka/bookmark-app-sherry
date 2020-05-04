@@ -31,15 +31,13 @@ function getBookmarks() {
 }
 
 //create bookmarks
-function createBookmark(...args) {
-    console.log('createBookmark was called in api.js');
-    const newBookmark = JSON.stringify({...args});
+function createBookmark(args) {
     return fetch(`${BASE_URL}/bookmarks`, {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json',
         },
-        body: newBookmark
+        body: args
 
     });
 }
