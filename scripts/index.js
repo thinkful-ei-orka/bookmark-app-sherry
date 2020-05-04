@@ -11,6 +11,14 @@ function main() {
      * function to render page
      * after getting info from api
      */
+    api.getBookmarks()
+        .then(res => res.json())
+        .then((items) => {
+            console.log(items);
+           // items.forEach((item) => store.addItem(item));
+        }).catch(err => console.error(err.message));
+
+    console.log(store.bookmarks);
     bookmark.bindEventListeners();
     bookmark.render();
 }

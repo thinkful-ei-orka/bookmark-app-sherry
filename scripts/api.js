@@ -3,35 +3,37 @@
 const BASE_URL = 'https://thinkful-list-api.herokuapp.com/Sherry';
 
 //fetch bookmarks
-const bookmarkApiFetch = function (...args) {
+/**
+ * const bookmarkApiFetch = function (...args) {
 let error;
 return fetch(...args)
     .then(response => {
         if(!response.ok) {
-            error = {code: response.status};
+            store.error = {code: response.status};
             if(!response.headers.get('content-type').includes('json')) {
-                error.message = response.statusText
+                store.error.message = response.statusText
                 return Promise.reject(error);
             }
         }
     })
     .then(data => {
         if(error) {
-            error.message = data.message
+            store.error.message = data.message
             return Promise.reject(error);
         }
         return data;
     });
 };
+ */
 
 function getBookmarks() {
-    return bookmarkApiFetch(`${BASE_URL}/bookmarks`);
+    return fetch(`${BASE_URL}/bookmarks`);
 }
 
 //create bookmarks
-function createBookmark(title, url, desc, rating) {
-    const newBookmark = JSON.stringify({title, url, desc, rating});
-    return bookmarkApiFetch(`${BASE_URL}/bookmarks`, {
+function createBookmark(...args) {
+    const newBookmark = JSON.stringify({...args});
+    return fetch(`${BASE_URL}/bookmarks`, {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json',
@@ -44,7 +46,7 @@ function createBookmark(title, url, desc, rating) {
 
 //delete bookmarks
 function deleteBookmark(id) {
-    return bookmarkApiFetch(BASE_URL + '/bookmarks/' + id, {
+    return fetch(BASE_URL + '/bookmarks/' + id, {
         method: 'DELETE'
     });
 }

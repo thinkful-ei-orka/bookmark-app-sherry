@@ -10,6 +10,10 @@ let filter = 0;
 // bookmarks.set('expanded', 'false') でいいかな
 
 
+function addItem() {
+    
+}
+
 export default {
     bookmarks,
     adding,

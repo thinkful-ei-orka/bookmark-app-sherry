@@ -13,6 +13,18 @@ import store from './store.js';
 function templateBookmarkPage() {
     console.log('templateBookmarkPage was called');
     //need a forEach on this
+    //make a const to hold this value
+    /**
+     * make whole thing a button?
+     * <div role="bookmark-list" class="js-bookmark-list">
+        <p class="bookmark-title">Title</p>
+        <a href="URL" class="bookmark-url">Visit Site</a>
+        <p class="bookmark-description">DESC</p>
+        <p class="bookmark-rating">RATING</p>
+        <button type="button" class="cancel-button js-cancel-button">Cancel</button>
+        <button type="button" class="delete-button js-delete-button">Delete</button>
+    </div>
+     */
     return `<button type="button" class="add-button js-add-button">Add</button>
     <select name="select-rating" class="select-rating js-select-rating">
         <option value="rating-all">See all Bookmarks</option>
@@ -21,14 +33,8 @@ function templateBookmarkPage() {
         <option value="rating-three">See 3 and above</option>
         <option value="rating-two">See 2 and above</option>
         <option value="rating-one">See 1 and above</option>
-    </select>
-    <div role="bookmark-list" class="js-bookmark-list">
-        <p class="bookmark-title">Title</p>
-        <a href="URL" class="bookmark-url hidden">Visit Site</a>
-        <p class="bookmark-description hidden">DESC</p>
-        <p class="bookmark-rating">RATING</p>
-        <button type="button" class="delete-button js-delete-button hidden">Delete</button>
-    </div>`
+    </select>`
+    //code for the above block goes here $ {} way
 }
 
 //renders the add bookmark page
@@ -42,9 +48,9 @@ function templateAddBookmarkPage() {
             <label for="bookmark-url">Web Address</label>
             <input type="url" name="bookmark-url-input" id="bookmark-url-input" placeholder="Page URL" required/>
             <label for="bookmark-description-input">Description</label>
-            <input type="text" name="bookmark-description-input" id="bookmark-description-input" placeholder="Description of site" />
+            <input type="text" name="bookmark-description-input" id="bookmark-description-input" placeholder="Description of site" required/>
             <label for="bookmark-rating-input">Rating 1 - 5</label>
-            <input type="number" name="bookmark-rating-input" id="bookmark-rating-input" placeholder="1 - 5" />
+            <input type="number" name="bookmark-rating-input" id="bookmark-rating-input" placeholder="1 - 5" required/>
             <button type="submit" class="add-bookmark-submit js-add-button-submit">Add Bookmark</button>
         </fieldset>
     </form>`
