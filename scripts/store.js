@@ -13,17 +13,8 @@ let filter = 0;
 
 
 function addItem(newItem) {
-    console.log(newItem);
-    console.log(item.create(newItem));
+//    console.log(newItem);
     this.bookmarks.push(item.create(newItem));
-//    console.log(array);
-/**
- * this.bookmarks.map(() => {
-        item.create(array);
-        bookmarks.expanded = false;
-    })
- */
-//    console.log(bookmarks);
 }
 
 export default {

@@ -1,5 +1,5 @@
 function create(object) {
-    console.log(object);
+//    console.log(object);
     return {
         id : object.id,
         title : object.title,

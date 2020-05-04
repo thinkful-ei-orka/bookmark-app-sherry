@@ -10,22 +10,30 @@ import store from './store.js';
  */
 
 //returns the page of bookmarks
-function templateBookmarkPage() {
-    console.log('templateBookmarkPage was called');
+function templateBookmarks(bookmark) {
+//    console.log('templateBookmarks was called');
     //need a forEach on this
-    //make a const to hold this value
-    /**
-     * make whole thing a button?
-     * <div role="bookmark-list" class="js-bookmark-list">
-        <p class="bookmark-title">Title</p>
-        <a href="URL" class="bookmark-url">Visit Site</a>
-        <p class="bookmark-description">DESC</p>
-        <p class="bookmark-rating">RATING</p>
-        <button type="button" class="cancel-button js-cancel-button">Cancel</button>
-        <button type="button" class="delete-button js-delete-button">Delete</button>
-    </div>
-     */
-    return `<button type="button" class="add-button js-add-button">Add</button>
+    let bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list">
+            <button type="button" class="bookmark-title js-expand-button">${store.bookmarks.title}</button>
+            <p class="bookmark-rating">${store.bookmarks.rating}</p>
+        </div>`;
+//        console.log(bookmarkForm);
+
+    if(!store.bookmarks) {
+       bookmarkForm = ` <div role="bookmark-list" class="js-bookmark-list">
+            <button type="button" class="bookmark-title js-expand-button">${store.bookmarks.title}</button>
+            <a href="${store.bookmarks.url}" class="bookmark-url">Visit Site</a>
+            <p class="bookmark-description">${store.bookmarks.desc}</p>
+            <p class="bookmark-rating">${store.bookmarks.rating}</p>
+            <button type="button" class="cancel-button js-cancel-button">Cancel</button>
+            <button type="button" class="delete-button js-delete-button">Delete</button>
+        </div>`;
+     }
+     return bookmarkForm
+}
+
+function templateBookmarkPage() {
+    let addAndFilterButtons = `<button type="button" class="add-button js-add-button">Add</button>
     <select name="select-rating" class="select-rating js-select-rating">
         <option value="rating-all">See all Bookmarks</option>
         <option value="rating-five">See Rated 5 Bookmarks</option>
@@ -33,8 +41,15 @@ function templateBookmarkPage() {
         <option value="rating-three">See 3 and above</option>
         <option value="rating-two">See 2 and above</option>
         <option value="rating-one">See 1 and above</option>
-    </select>`
-    //code for the above block goes here $ {} way
+    </select>`;
+    return addAndFilterButtons;
+    
+}
+
+function bookmarkString() {
+    const bookmarks = store.bookmarks.map(item => templateBookmarks(item));
+    console.log(bookmarks);
+    return bookmarks.join('');
 }
 
 //renders the add bookmark page
@@ -62,16 +77,18 @@ function templateAddBookmarkPage() {
 
 //renders main page
 function render() {
-    console.log(store.bookmarks);
+//   console.log(store.bookmarks);
 /**
  *  ERROR RENDER BOYO
  *  let bookmarks = [...store.bookmarks];
- *  if(store.bookmarks.expanded === true) {
- *      $('main').removeClass('hidden');
  * }
 */
-    const bookmarkString = templateBookmarkPage();
-    $('main').html(bookmarkString);
+    const addAndFiler = templateBookmarkPage();
+//    console.log(addAndFiler);
+    const bookmarkStringified = bookmarkString();
+//    console.log(bookmarkString);
+    const mainPage = addAndFiler + bookmarkStringified;
+    $('main').html(mainPage);
 
 }
 
@@ -118,6 +135,7 @@ function deleteBookmark() {
 //filters the bookmarks
 function filterBookmarks() {
     $('main').on('click', '.js-select-rating', event => {
+        event.stopPropagation();
         event.preventDefault();
         console.log('filterBookmarks');
         const id = getItemIdFromElement(event.currentTarget);
@@ -128,7 +146,7 @@ function filterBookmarks() {
 
 //on clicking the title, it expands!
 //function expandBookmarks() {
-//    $('main').on('click', '.js-bookmark-list', event => {
+//    $('main').on('click', '.js-expand-button', event => {
 //        event.preventDefault();
 //        if(store.[something]expanded)
 //    })

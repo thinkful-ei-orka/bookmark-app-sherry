@@ -14,12 +14,12 @@ function main() {
     api.getBookmarks()
         .then(res => res.json())
         .then((items) => {
-            console.log(items);
+//            console.log(items);
             items.forEach((item) => store.addItem(item));
             bookmark.render();
         }).catch(err => console.error(err.message));
 
-    console.log(store.bookmarks);
+//    console.log(store.bookmarks);
     bookmark.bindEventListeners();
     bookmark.render();
 }
