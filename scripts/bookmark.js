@@ -62,6 +62,7 @@ function templateAddBookmarkPage() {
 
 //renders main page
 function render() {
+    console.log(store.bookmarks);
 /**
  *  ERROR RENDER BOYO
  *  let bookmarks = [...store.bookmarks];

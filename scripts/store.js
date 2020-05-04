@@ -12,9 +12,10 @@ let filter = 0;
 // bookmarks.set('expanded', 'false') でいいかな
 
 
-function addItem(...array) {
-//    console.log(array);
-    this.bookmarks.push(item.create(array));
+function addItem(newItem) {
+    console.log(newItem);
+    console.log(item.create(newItem));
+    this.bookmarks.push(item.create(newItem));
 //    console.log(array);
 /**
  * this.bookmarks.map(() => {
@@ -22,7 +23,7 @@ function addItem(...array) {
         bookmarks.expanded = false;
     })
  */
-    console.log(bookmarks);
+//    console.log(bookmarks);
 }
 
 export default {
