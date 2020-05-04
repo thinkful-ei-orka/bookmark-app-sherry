@@ -50,7 +50,7 @@ function templateAddBookmarkPage() {
             <label for="bookmark-description-input">Description</label>
             <input type="text" name="bookmark-description-input" id="bookmark-description-input" placeholder="Description of site" required/>
             <label for="bookmark-rating-input">Rating 1 - 5</label>
-            <input type="number" name="bookmark-rating-input" id="bookmark-rating-input" placeholder="1 - 5" required/>
+            <input type="number" min="1" max="5" name="bookmark-rating-input" id="bookmark-rating-input" placeholder="1 - 5" required/>
             <button type="submit" class="add-bookmark-submit js-add-button-submit">Add Bookmark</button>
         </fieldset>
     </form>`
@@ -86,7 +86,7 @@ function getItemIdFromElement(item) {
 
 //adds bookmark to page
 function addBookmark() {
-    $('main').on('click', '.js-add-button-submit', event => {
+    $('main').on('submit', '.js-add-button-submit', event => {
         event.preventDefault();
         console.log('addBookmark worked');
         render();

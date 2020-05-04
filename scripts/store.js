@@ -1,4 +1,6 @@
 'use strict';
+
+import item from './item.js';
 // create store 
 
 const bookmarks = [];
@@ -10,13 +12,23 @@ let filter = 0;
 // bookmarks.set('expanded', 'false') でいいかな
 
 
-function addItem() {
-    
+function addItem(...array) {
+//    console.log(array);
+    this.bookmarks.push(item.create(array));
+//    console.log(array);
+/**
+ * this.bookmarks.map(() => {
+        item.create(array);
+        bookmarks.expanded = false;
+    })
+ */
+    console.log(bookmarks);
 }
 
 export default {
     bookmarks,
     adding,
     error,
-    filter
+    filter,
+    addItem
 }
