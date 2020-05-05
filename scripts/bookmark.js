@@ -13,18 +13,18 @@ import store from './store.js';
 function templateBookmarks(bookmark) {
 //    console.log('templateBookmarks was called');
     //need a forEach on this
-    let bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list" data-item-id="${bookmark.id}">
+    let bookmarkForm = `<div role="bookmark-list" class="bookmark-list js-bookmark-list" data-item-id="${bookmark.id}">
             <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
-            <p class="bookmark-rating">${bookmark.rating}</p>
+            <p class="bookmark-rating">Rating: ${bookmark.rating}</p>
         </div>`;
 //        console.log(bookmarkForm);
 
     if(bookmark.expanded) {
-       bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list" data-item-id="${bookmark.id}">
+       bookmarkForm = `<div role="bookmark-list" class="bookmark-list js-bookmark-list" data-item-id="${bookmark.id}">
             <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
-            <a href="${bookmark.url}" class="bookmark-url">Visit Site</a>
-            <p class="bookmark-description">${bookmark.desc}</p>
-            <p class="bookmark-rating">${bookmark.rating}</p>
+            <a href="${bookmark.url}" class="bookmark-url" target="_blank">Visit Site</a>
+            <p class="bookmark-description">Description: ${bookmark.desc}</p>
+            <p class="bookmark-rating">Rating: ${bookmark.rating}</p>
             <button type="button" class="delete-button js-delete-button">Delete</button>
         </div>`;
      }
@@ -168,7 +168,21 @@ function filterBookmarks() {
 //        event.stopPropagation(); even needed?
         event.preventDefault();
         console.log('filterBookmarks');
-        const id = getItemIdFromElement(event.currentTarget);
+        
+        /**
+         * Will need to get a value from the select menu
+         * Need to filter the store.bookmarks to show only
+         * those rating # and above
+         * How can I get the rating out of store.bookmarks
+         * and how do I know which was selected from above
+         * 
+         * switch here?
+         *  case rating-one {
+         *      ratingSelect = 1;    
+         *  }
+         * 
+         * store.bookmarks.filter(item => item.rankig >= ratingSelection)
+         */
         //if(store.bookmarks[id].rating === )
         // this should be a number, but check it
         // probably a filter method here on store.bookmarks
