@@ -11,13 +11,10 @@ import store from './store.js';
 
 //returns the page of bookmarks
 function templateBookmarks(bookmark) {
-//    console.log('templateBookmarks was called');
-    //need a forEach on this
     let bookmarkForm = `<div role="bookmark-list" class="bookmark-list js-bookmark-list" data-item-id="${bookmark.id}">
             <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
             <p class="bookmark-rating">Rating: ${bookmark.rating}</p>
         </div>`;
-//        console.log(bookmarkForm);
 
     if(bookmark.expanded) {
        bookmarkForm = `<div role="bookmark-list" class="bookmark-list js-bookmark-list" data-item-id="${bookmark.id}">
@@ -31,6 +28,7 @@ function templateBookmarks(bookmark) {
      return bookmarkForm
 }
 
+//sets a variable for the Add button and Select menu
 function templateBookmarkPage() {
     let addAndFilterButtons = `<button type="button" class="add-button js-add-button">Add</button>
     <select name="select-rating" class="select-rating js-select-rating">
@@ -45,9 +43,9 @@ function templateBookmarkPage() {
     
 }
 
+//joins the html elements for rendering bookmarks on page
 function bookmarkString(newBookmarks) {
     const bookmarks = newBookmarks.map(item => templateBookmarks(item));
-//    console.log(bookmarks);
     return bookmarks.join('');
 }
 
@@ -68,7 +66,32 @@ function templateAddBookmarkPage() {
             <button type="button" class="cancel-button js-cancel-button">Cancel</button>
             <button type="submit" class="add-bookmark-submit js-add-button-submit">Add Bookmark</button>
         </fieldset>
-    </form>`
+    </form>`;
+}
+
+function generateError(message) {
+    return `
+    <section class="error-container">
+        <button id="cancel-error">X</button>
+        <p>${message}</p>
+    </section>
+    `;
+}
+
+function renderError() {
+    if(store.error) {
+        const el = generateError(store.error);
+        $('.error-container').html(el);
+    } else {
+        $('.error-container').empty();
+    }
+}
+
+function handleCloseError() {
+    $('.error-container').on('click', '#cancel-error', () => {
+    store.setError(null);
+    renderError();
+})
 }
 
 /**
@@ -77,12 +100,7 @@ function templateAddBookmarkPage() {
 
 //renders main page
 function render() {
-//   console.log(store.bookmarks);
-/**
- *  ERROR RENDER BOYO
- *  let bookmarks = [...store.bookmarks];
- * }
-*/
+    renderError();
 
     let bookmarks = [...store.bookmarks];
     if(store.filter > 0) {
@@ -90,25 +108,21 @@ function render() {
     }
 
     const addAndFilter = templateBookmarkPage();
-//    console.log(addAndFiler);
     const bookmarkStringified = bookmarkString(bookmarks);
-//    console.log(bookmarkString);
     const mainPage = addAndFilter + bookmarkStringified;
     $('main').html(mainPage);
 
 }
 
+/**
+ * event listeners
+ */
+
 function getItemIdFromElement(item) {
-//    console.log(item);
     return $(item)
         .closest('.js-bookmark-list')
         .data('item-id');
 }
-
-
-/**
- * event listeners
- */
 
 function serializeJson(form) {
     const formData = new FormData(form);
@@ -123,15 +137,15 @@ function addBookmark() {
     $('main').on('submit', '.add-bookmark-form', event => {
         event.preventDefault();
         const newBookmark = serializeJson($('.add-bookmark-form')[0]);
-//        console.log(newBookmark);
         api.createBookmark(newBookmark)
         .then(res => res.json())
         .then((items) => {
-//            console.log(items);
             store.addItem(items);
             render();
-        }).catch(err => console.error(err.message));
-//        console.log('createBookmark worked');
+        }).catch(err => {
+            store.setError(error.message);
+            renderError();
+        })
         render();
     })
 
@@ -162,9 +176,13 @@ function deleteBookmark() {
         //    console.log(items);
             store.findAndDelete(id);
             render();
-        }).catch(err => console.error(err.message));
+        }).catch(err => {
+            console.log(error);
+            store.setError(error.message);
+            renderError();
 
         render();
+        })
     })
 }
 
@@ -173,29 +191,7 @@ function filterBookmarks() {
     $('main').on('change', '.js-select-rating', event => {
         event.preventDefault();
         store.filter = parseInt($(event.currentTarget).children("option:selected").val());
-
-//        console.log(store.filter);
         render();
-        
-        /**
-         * Will need to get a value from the select menu
-         * Need to filter the store.bookmarks to show only
-         * those rating # and above
-         * How can I get the rating out of store.bookmarks
-         * and how do I know which was selected from above
-         * 
-         * const userNum = $(event.currentTarget).find('#number-choice').val();
-         * 
-         * switch here?
-         *  case rating-one {
-         *      ratingSelect = 1;    
-         *  }
-         * 
-         * store.bookmarks.filter(item => item.rankig >= ratingSelection)
-         */
-        //if(store.bookmarks[id].rating === )
-        // this should be a number, but check it
-        // probably a filter method here on store.bookmarks
     })
 }
 
@@ -230,6 +226,7 @@ function bindEventListeners() {
     filterBookmarks();
     cancelButtonClicked();
     expandBookmarks();
+    handleCloseError();
 }
 
 export default {

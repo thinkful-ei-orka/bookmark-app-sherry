@@ -17,7 +17,10 @@ function main() {
 //            console.log(items);
             items.forEach((item) => store.addItem(item));
             bookmark.render();
-        }).catch(err => console.error(err.message));
+        }).catch(err => {
+            store.setError(error.message);
+            renderError();
+        })
 
 //    console.log(store.bookmarks);
     bookmark.bindEventListeners();

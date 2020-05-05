@@ -1,5 +1,4 @@
 function create(object) {
-//    console.log(object);
     return {
         id : object.id,
         url : object.url,

@@ -21,11 +21,16 @@ function findAndDelete(id) {
     this.bookmarks = this.bookmarks.filter(currentItem => currentItem.id !== id);
 }
 
+function setError(error) {
+    this.error = error;
+}
+
 export default {
     bookmarks,
     adding,
     error,
     filter,
     addItem,
-    findAndDelete
+    findAndDelete,
+    setError
 }
