@@ -35,11 +35,11 @@ function templateBookmarkPage() {
     let addAndFilterButtons = `<button type="button" class="add-button js-add-button">Add</button>
     <select name="select-rating" class="select-rating js-select-rating">
         <option value="">--Minium Rating--</option>
-        <option value="5">See Rated 5 Bookmarks</option>
-        <option value="4">See Rated 4 and above</option>
-        <option value="3">See 3 and above</option>
-        <option value="2">See 2 and above</option>
-        <option value="1">See 1 and above</option>
+        <option id="rating" value="5">See Rated 5 Bookmarks</option>
+        <option id="rating" value="4">See Rated 4 and above</option>
+        <option id="rating" value="3">See 3 and above</option>
+        <option id="rating" value="2">See 2 and above</option>
+        <option id="rating" value="1">See 1 and above</option>
     </select>`;
     return addAndFilterButtons;
     
@@ -162,12 +162,25 @@ function deleteBookmark() {
     })
 }
 
+//gets the value of the select box
+function getValueOfSelect() {
+    return $("select.select-rating").change(function() {
+        store.filter = parseInt($(this).children("option:selected").val());
+    })
+}
+
 //filters the bookmarks
 function filterBookmarks() {
-    $('main').on('click', '.js-select-rating', event => {
+    $('main').on('change', '.js-select-rating', event => {
         event.stopPropagation();
         event.preventDefault();
         console.log('filterBookmarks');
+        
+        getValueOfSelect();
+
+        console.log(store.filter);
+        store.bookmarks.filter(item => item.rating >= store.filter);
+        
         
         /**
          * Will need to get a value from the select menu
@@ -175,6 +188,8 @@ function filterBookmarks() {
          * those rating # and above
          * How can I get the rating out of store.bookmarks
          * and how do I know which was selected from above
+         * 
+         * const userNum = $(event.currentTarget).find('#number-choice').val();
          * 
          * switch here?
          *  case rating-one {
