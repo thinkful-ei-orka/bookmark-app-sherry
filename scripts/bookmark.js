@@ -34,12 +34,12 @@ function templateBookmarks(bookmark) {
 function templateBookmarkPage() {
     let addAndFilterButtons = `<button type="button" class="add-button js-add-button">Add</button>
     <select name="select-rating" class="select-rating js-select-rating">
-        <option value="rating-all">See all Bookmarks</option>
-        <option value="rating-five">See Rated 5 Bookmarks</option>
-        <option value="rating-four">See Rated 4 and above</option>
-        <option value="rating-three">See 3 and above</option>
-        <option value="rating-two">See 2 and above</option>
-        <option value="rating-one">See 1 and above</option>
+        <option value="">--Minium Rating--</option>
+        <option value="5">See Rated 5 Bookmarks</option>
+        <option value="4">See Rated 4 and above</option>
+        <option value="3">See 3 and above</option>
+        <option value="2">See 2 and above</option>
+        <option value="1">See 1 and above</option>
     </select>`;
     return addAndFilterButtons;
     
@@ -165,7 +165,7 @@ function deleteBookmark() {
 //filters the bookmarks
 function filterBookmarks() {
     $('main').on('click', '.js-select-rating', event => {
-//        event.stopPropagation(); even needed?
+        event.stopPropagation();
         event.preventDefault();
         console.log('filterBookmarks');
         
@@ -196,14 +196,14 @@ function cancelButtonClicked() {
     })
 }
 
-//on clicking the title, it expands!
+//on clicking the title, it expands! or unexpands!
 function expandBookmarks() {
     $('main').on('click', '.js-expand-button', event => {
         event.preventDefault();
         const id = getItemIdFromElement(event.currentTarget);
-        console.log(id);
+//        console.log(id);
         const index = store.bookmarks.findIndex(item => item.id === id);
-        console.log(store.bookmarks[index]);
+//        console.log(store.bookmarks[index]);
         store.bookmarks[index].expanded = !store.bookmarks[index].expanded;
         render();
     })
