@@ -19,13 +19,12 @@ function templateBookmarks(bookmark) {
         </div>`;
 //        console.log(bookmarkForm);
 
-    if(!bookmark.expanded) {
+    if(bookmark.expanded) {
        bookmarkForm = `<div role="bookmark-list" class="js-bookmark-list" data-item-id="${bookmark.id}">
             <button type="button" class="bookmark-title js-expand-button">${bookmark.title}</button>
             <a href="${bookmark.url}" class="bookmark-url">Visit Site</a>
             <p class="bookmark-description">${bookmark.desc}</p>
             <p class="bookmark-rating">${bookmark.rating}</p>
-            <button type="button" class="cancel-button js-cancel-button">Cancel</button>
             <button type="button" class="delete-button js-delete-button">Delete</button>
         </div>`;
      }
@@ -66,6 +65,7 @@ function templateAddBookmarkPage() {
             <input type="text" name="desc" id="bookmark-description-input" placeholder="Description of site" required/>
             <label for="bookmark-rating-input">Rating 1 - 5</label>
             <input type="number" min="1" max="5" name="rating" id="bookmark-rating-input" placeholder="1 - 5" required/>
+            <button type="button" class="cancel-button js-cancel-button">Cancel</button>
             <button type="submit" class="add-bookmark-submit js-add-button-submit">Add Bookmark</button>
         </fieldset>
     </form>`
@@ -93,7 +93,7 @@ function render() {
 }
 
 function getItemIdFromElement(item) {
-    console.log(item);
+//    console.log(item);
     return $(item)
         .closest('.js-bookmark-list')
         .data('item-id');
@@ -175,15 +175,25 @@ function filterBookmarks() {
     })
 }
 
+function cancelButtonClicked() {
+    $('main').on('click', '.js-cancel-button', event => {
+        event.preventDefault();
+        render();
+    })
+}
+
 //on clicking the title, it expands!
-//function expandBookmarks() {
-//    $('main').on('click', '.js-expand-button', event => {
-//        event.preventDefault();
-//        const id = getItemIdFromElements(event.currentTarget);
-//        store.bookmarks[id].expanded = true;
-//        render();
-//    })
-//]}
+function expandBookmarks() {
+    $('main').on('click', '.js-expand-button', event => {
+        event.preventDefault();
+        const id = getItemIdFromElement(event.currentTarget);
+        console.log(id);
+        const index = store.bookmarks.findIndex(item => item.id === id);
+        console.log(store.bookmarks[index]);
+        store.bookmarks[index].expanded = !store.bookmarks[index].expanded;
+        render();
+    })
+}
 
 /**
  * gets passed into main to do initial rendering of pg
@@ -194,7 +204,8 @@ function bindEventListeners() {
     toAddPage();
     deleteBookmark();
     filterBookmarks();
-    //expandBookmarks();
+    cancelButtonClicked();
+    expandBookmarks();
 }
 
 export default {
