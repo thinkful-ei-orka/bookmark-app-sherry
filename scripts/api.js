@@ -3,10 +3,9 @@
 const BASE_URL = 'https://thinkful-list-api.herokuapp.com/Sherry';
 
 //fetch bookmarks
-/**
- * const bookmarkApiFetch = function (...args) {
+const bookmarkApiFetch = function (url) {
 let error;
-return fetch(...args)
+return fetch(url)
     .then(response => {
         if(!response.ok) {
             store.error = {code: response.status};
@@ -24,7 +23,7 @@ return fetch(...args)
         return data;
     });
 };
- */
+
 
 function getBookmarks() {
     return fetch(`${BASE_URL}/bookmarks`);

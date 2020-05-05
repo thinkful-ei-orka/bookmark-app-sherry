@@ -35,11 +35,11 @@ function templateBookmarkPage() {
     let addAndFilterButtons = `<button type="button" class="add-button js-add-button">Add</button>
     <select name="select-rating" class="select-rating js-select-rating">
         <option value="">--Minium Rating--</option>
-        <option id="rating" value="5">See Rated 5 Bookmarks</option>
-        <option id="rating" value="4">See Rated 4 and above</option>
-        <option id="rating" value="3">See 3 and above</option>
-        <option id="rating" value="2">See 2 and above</option>
-        <option id="rating" value="1">See 1 and above</option>
+        <option id="rating" value="5">Rated 5 </option>
+        <option id="rating" value="4">Rated 4 and above</option>
+        <option id="rating" value="3">Rated 3 and above</option>
+        <option id="rating" value="2">Rated 2 and above</option>
+        <option id="rating" value="1">Rated 1 and above</option>
     </select>`;
     return addAndFilterButtons;
     

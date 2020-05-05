@@ -12,8 +12,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-/*    background: url('../images/leaves-small.jpg');
-    background-repeat: no-repeat; */
+    background: url('../images/leaves-small.jpg');
+    background-repeat: no-repeat;
+    color: white;
   
  }
   
@@ -22,13 +23,14 @@
  }
   
  main {
+    font-size: 1.1em;
  }
 
  .js-bookmark-list {
     margin-top: 10px;
     margin-bottom : 10px;
     padding: 10px;
-    background-color: slategray;
+    background-color: rgba(62.8, 76, 59.2, 0.5);
     border-radius: 5px;
     max-width: 80%;
  }
@@ -37,59 +39,79 @@
    padding: 5px;
    border-radius: 5px;
  }
-  
+
  .select-rating {
    padding: 5px;
+   font-size: 1.1em;
+   background-color: white;
  }
 
  .bookmark-title {
     width: 100%;
     font-size: 1.2em;
+    border-radius: 5px;
  } 
 
  div.bookmark-list>a {
-    color: black;
+    color: white;
  }
 
  .delete-button, .cancel-button {
     padding: 2px;
     border-radius: 5px;
  }
-  
+
+
  .add-bookmark-sumbit {
-    padding: 3px;
+    padding: 5px;
+    margin: 3px;
     border-radius: 5px;
  }
 
  /* LOOK UP HOW FOR FORMAT THIS IN THAT BOOK LATER */
  label {
    display: block;
+   font-size: 1.1em;
    padding-bottom: 3px;
+   border-radius: 5px;
  }
 
  input {
     display: block;
     padding-bottom: 3px;
+    border-radius: 5px;
+    margin: 5px;
  }
+
+ fieldset>button {
+    margin-top: 5px;
+ }
+
   
- /* @media screen and (min-width: 480px) {
-   body {]
+ @media screen and (min-width: 480px) {
+   body {
       background: url('../images/leaves.jpg')
    }
    
    .js-bookmark-list {
       max-width: 80%;
    }
+
+   h1 {
+      font-size: 2.5em;
+   }
  }
   
  @media screen and (min-width: 1024px) {
-   body {]
+   body {
       background: url('../images/leaves.jpg')
    }
 
    .js-bookmark-list {
-      max-width: 75%;
+      max-width: 80%;
+   }
+
+   h1 {
+      font-size: 2.75em
    }
  }
- 
- */
