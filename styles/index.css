@@ -19,11 +19,16 @@
  }
   
  h1 {
-  font-size: 2.0em;
+  font-size: 2.4em;
+  /* font-family: 'Kaushan Script', cursive; */
+  /* font-family: 'Fredoka One', cursive;  */
+  font-family: 'Luckiest Guy', cursive;
+  text-shadow: 2px 2px 0px rgba(23.1, 28, 21.8, 1);
  }
   
  main {
-    font-size: 1.1em;
+    font-size: 1.0em;
+    font-family: 'Raleway', sans-serif;
  }
 
  .js-bookmark-list {
@@ -56,16 +61,30 @@
     color: white;
  }
 
+ div.bookmark-list>a:hover {
+    text-shadow: 1px 1px 0px #000000;
+ }
+
  .delete-button, .cancel-button {
     padding: 2px;
     border-radius: 5px;
  }
 
 
- .add-bookmark-sumbit {
-    padding: 5px;
+ .add-bookmark-submit {
+    padding: 3px;
     margin: 3px;
     border-radius: 5px;
+ }
+
+ .add-bookmark-submit:hover, .cancel-button:hover, .add-button:hover, .bookmark-title:hover {
+    background-color: rgba(23.1, 28, 21.8, 0.5);
+    color: white;
+ }
+
+ .delete-button:hover {
+    background-color: rgba(147, 30, 24, 0.5);
+    color: white;
  }
 
  /* LOOK UP HOW FOR FORMAT THIS IN THAT BOOK LATER */
@@ -90,7 +109,8 @@
   
  @media screen and (min-width: 480px) {
    body {
-      background: url('../images/leaves.jpg')
+      background: url('../images/leaves.jpg');
+      font-size: 1.2em;
    }
    
    .js-bookmark-list {
@@ -98,13 +118,14 @@
    }
 
    h1 {
-      font-size: 2.5em;
+      font-size: 2.8em;
    }
  }
   
  @media screen and (min-width: 1024px) {
    body {
-      background: url('../images/leaves.jpg')
+      background: url('../images/leaves.jpg');
+      font-size: 1.3em;
    }
 
    .js-bookmark-list {
@@ -112,6 +133,6 @@
    }
 
    h1 {
-      font-size: 2.75em
+      font-size: 3em;
    }
  }

@@ -15,6 +15,7 @@ return fetch(...args)
                 return Promise.reject(error);
             }
         }
+        return res.json();
     })
     .then(data => {
         if(error) {
@@ -32,7 +33,7 @@ function getBookmarks() {
 
 //create bookmarks
 function createBookmark(args) {
-    return fetch(`${BASE_URL}/bookmarks`, {
+    return bookmarkApiFetch(`${BASE_URL}/bookmarks`, {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json',
@@ -45,7 +46,7 @@ function createBookmark(args) {
 
 //delete bookmarks
 function deleteBookmark(id) {
-    return fetch(BASE_URL + '/bookmarks/' + id, {
+    return bookmarkApiFetch(BASE_URL + '/bookmarks/' + id, {
         method: 'DELETE'
     });
 }

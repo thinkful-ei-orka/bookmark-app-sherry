@@ -12,17 +12,16 @@ function main() {
      * after getting info from api
      */
     api.getBookmarks()
-        .then(res => res.json())
         .then((items) => {
-//            console.log(items);
+            console.log(items);
             items.forEach((item) => store.addItem(item));
             bookmark.render();
         }).catch(err => {
-            store.setError(error.message);
-            renderError();
+            console.log(err);
+            store.setError(err.message);
+            bookmark.renderError();
         })
 
-//    console.log(store.bookmarks);
     bookmark.bindEventListeners();
     bookmark.render();
 

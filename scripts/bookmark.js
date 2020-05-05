@@ -30,7 +30,9 @@ function templateBookmarks(bookmark) {
 
 //sets a variable for the Add button and Select menu
 function templateBookmarkPage() {
-    let addAndFilterButtons = `<button type="button" class="add-button js-add-button">Add</button>
+    let addAndFilterButtons = ` <section class="error-container">
+    </section>
+    <button type="button" class="add-button js-add-button">Add</button>
     <select name="select-rating" class="select-rating js-select-rating">
         <option value="">--Minium Rating--</option>
         <option id="rating" value="5">Rated 5 </option>
@@ -71,10 +73,8 @@ function templateAddBookmarkPage() {
 
 function generateError(message) {
     return `
-    <section class="error-container">
         <button id="cancel-error">X</button>
         <p>${message}</p>
-    </section>
     `;
 }
 
@@ -138,12 +138,12 @@ function addBookmark() {
         event.preventDefault();
         const newBookmark = serializeJson($('.add-bookmark-form')[0]);
         api.createBookmark(newBookmark)
-        .then(res => res.json())
         .then((items) => {
+            console.log(items);
             store.addItem(items);
             render();
         }).catch(err => {
-            store.setError(error.message);
+            store.setError(err.message);
             renderError();
         })
         render();
@@ -171,14 +171,12 @@ function deleteBookmark() {
         console.log(id);
         
         api.deleteBookmark(id)
-        .then(res => res.json())
         .then((items) => {
-        //    console.log(items);
             store.findAndDelete(id);
             render();
         }).catch(err => {
-            console.log(error);
-            store.setError(error.message);
+            console.log(err);
+            store.setError(err.message);
             renderError();
 
         render();
@@ -207,9 +205,7 @@ function expandBookmarks() {
     $('main').on('click', '.js-expand-button', event => {
         event.preventDefault();
         const id = getItemIdFromElement(event.currentTarget);
-//        console.log(id);
         const index = store.bookmarks.findIndex(item => item.id === id);
-//        console.log(store.bookmarks[index]);
         store.bookmarks[index].expanded = !store.bookmarks[index].expanded;
         render();
     })
@@ -231,5 +227,6 @@ function bindEventListeners() {
 
 export default {
     bindEventListeners,
-    render
+    render,
+    renderError
 };
