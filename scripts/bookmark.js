@@ -65,8 +65,10 @@ function templateAddBookmarkPage() {
             <input type="text" name="desc" id="bookmark-description-input" placeholder="Description of site" required/>
             <label for="bookmark-rating-input">Rating 1 - 5</label>
             <input type="number" min="1" max="5" name="rating" id="bookmark-rating-input" placeholder="1 - 5" required/>
-            <button type="button" class="cancel-button js-cancel-button">Cancel</button>
-            <button type="submit" class="add-bookmark-submit js-add-button-submit">Add Bookmark</button>
+            <div class="buttons">
+                <button type="button" class="cancel-button js-cancel-button">Cancel</button>
+                <button type="submit" class="add-bookmark-submit js-add-button-submit">Add Bookmark</button>
+            </div>
         </fieldset>
     </form>`;
 }
