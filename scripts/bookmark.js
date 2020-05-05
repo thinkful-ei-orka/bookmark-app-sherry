@@ -45,8 +45,8 @@ function templateBookmarkPage() {
     
 }
 
-function bookmarkString() {
-    const bookmarks = store.bookmarks.map(item => templateBookmarks(item));
+function bookmarkString(newBookmarks) {
+    const bookmarks = newBookmarks.map(item => templateBookmarks(item));
 //    console.log(bookmarks);
     return bookmarks.join('');
 }
@@ -83,11 +83,17 @@ function render() {
  *  let bookmarks = [...store.bookmarks];
  * }
 */
-    const addAndFiler = templateBookmarkPage();
+
+    let bookmarks = [...store.bookmarks];
+    if(store.filter > 0) {
+        bookmarks = store.bookmarks.filter(item => item.rating >= store.filter);
+    }
+
+    const addAndFilter = templateBookmarkPage();
 //    console.log(addAndFiler);
-    const bookmarkStringified = bookmarkString();
+    const bookmarkStringified = bookmarkString(bookmarks);
 //    console.log(bookmarkString);
-    const mainPage = addAndFiler + bookmarkStringified;
+    const mainPage = addAndFilter + bookmarkStringified;
     $('main').html(mainPage);
 
 }
@@ -162,25 +168,14 @@ function deleteBookmark() {
     })
 }
 
-//gets the value of the select box
-function getValueOfSelect() {
-    return $("select.select-rating").change(function() {
-        store.filter = parseInt($(this).children("option:selected").val());
-    })
-}
-
 //filters the bookmarks
 function filterBookmarks() {
     $('main').on('change', '.js-select-rating', event => {
-        event.stopPropagation();
         event.preventDefault();
-        console.log('filterBookmarks');
-        
-        getValueOfSelect();
+        store.filter = parseInt($(event.currentTarget).children("option:selected").val());
 
-        console.log(store.filter);
-        store.bookmarks.filter(item => item.rating >= store.filter);
-        
+//        console.log(store.filter);
+        render();
         
         /**
          * Will need to get a value from the select menu

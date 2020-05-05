@@ -12,6 +12,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+/*    background: url('../images/leaves-small.jpg');
+    background-repeat: no-repeat; */
   
  }
   
@@ -28,7 +30,7 @@
     padding: 10px;
     background-color: slategray;
     border-radius: 5px;
-    max-width: 300px;
+    max-width: 80%;
  }
 
  .add-button {
@@ -70,16 +72,24 @@
     padding-bottom: 3px;
  }
   
- @media screen and (min-width: 480px) {
+ /* @media screen and (min-width: 480px) {
+   body {]
+      background: url('../images/leaves.jpg')
+   }
+   
    .js-bookmark-list {
-      max-width: 800px;
+      max-width: 80%;
    }
  }
   
  @media screen and (min-width: 1024px) {
+   body {]
+      background: url('../images/leaves.jpg')
+   }
+
    .js-bookmark-list {
-      max-width: 1500px;
+      max-width: 75%;
    }
  }
  
- 
+ */
